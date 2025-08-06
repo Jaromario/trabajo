@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "e5f917ad-bce5-444b-82ce-866d2e5588b5",
+		"name": "ProyectoQA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41986640",
+		"_collection_link": "https://bold-satellite-97827.postman.co/workspace/Postman-API-Fundamentals-Studen~610d6755-0648-47d0-b8ec-af3fee8e21dc/collection/41986640-e5f917ad-bce5-444b-82ce-866d2e5588b5?action=share&source=collection_link&creator=41986640"
+	},
+	"item": [
+		{
+			"name": "lista_de_tareas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response content type is text/html\", function () {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.include('text/html');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 400ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(400);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type should be HTML\", function () {\r",
+							"    const contentType = pm.response.headers.get('Content-Type');\r",
+							"    pm.expect(contentType).to.include('text/html');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body should not be empty\", function () {\r",
+							"    const body = pm.response.text();\r",
+							"    pm.expect(body).to.be.a('string').and.not.empty;\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://todomvc.com/examples/react/dist/",
+					"protocol": "https",
+					"host": [
+						"todomvc",
+						"com"
+					],
+					"path": [
+						"examples",
+						"react",
+						"dist",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear_tarea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 405\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(405);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response Content-Type is text/xml\", function () {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('text/xml');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response schema contains required fields\", function () {\r",
+							"    const responseData = xml2Json(pm.response.text());\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.html).to.exist;\r",
+							"    pm.expect(responseData.html.head).to.exist.and.to.have.property('title');\r",
+							"    pm.expect(responseData.html.body).to.exist.and.to.have.property('$');\r",
+							"    pm.expect(responseData.html.body.$).to.exist.and.to.have.property('bgcolor');\r",
+							"    pm.expect(responseData.html.body.center).to.exist.and.to.have.property('h1');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Title must be a non-empty string\", function () {\r",
+							"    const responseData = xml2Json(pm.response.text());\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.html.head.title).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Aprender QA\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://todomvc.com/examples/react/dist/",
+					"protocol": "https",
+					"host": [
+						"todomvc",
+						"com"
+					],
+					"path": [
+						"examples",
+						"react",
+						"dist",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editar_tarea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 405\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(405);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has a Content-Type of text/xml\", function () {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('text/xml');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the structure of the response schema\", function () {\r",
+							"    const responseData = xml2Json(pm.response.text());\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('html');\r",
+							"    pm.expect(responseData.html).to.have.property('head');\r",
+							"    pm.expect(responseData.html.head).to.have.property('title');\r",
+							"    pm.expect(responseData.html).to.have.property('body');\r",
+							"    pm.expect(responseData.html.body).to.have.property('$');\r",
+							"    pm.expect(responseData.html.body.$).to.have.property('bgcolor');\r",
+							"    pm.expect(responseData.html.body).to.have.property('center');\r",
+							"    pm.expect(responseData.html.body.center).to.have.property('h1');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify that the title in the response is an empty string\", function () {\r",
+							"    const responseData = xml2Json(pm.response.text());\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.html.head.title).to.exist.and.to.equal(\"\", \"Title should be an empty string\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Tarea Editada\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://todomvc.com/examples/react/dist/",
+					"protocol": "https",
+					"host": [
+						"todomvc",
+						"com"
+					],
+					"path": [
+						"examples",
+						"react",
+						"dist",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar_tarea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 405\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(405);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response contains a valid Content-Type header\", function () {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.exist.and.to.match(/text\\/xml/, \"Content-Type should be 'text/xml'\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the structure of the response object\", function () {\r",
+							"    const responseData = xml2Json(pm.response.text());\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('html').that.is.an('object');\r",
+							"    pm.expect(responseData.html).to.have.property('head').that.is.an('object');\r",
+							"    pm.expect(responseData.html.head).to.have.property('title').that.is.a('string');\r",
+							"    pm.expect(responseData.html).to.have.property('body').that.is.an('object');\r",
+							"    pm.expect(responseData.html.body).to.have.property('$').that.is.an('object');\r",
+							"    pm.expect(responseData.html.body).to.have.property('center').that.is.an('object');\r",
+							"    pm.expect(responseData.html.body.center).to.have.property('h1').that.is.a('string');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"The title in the response head must be a non-empty string\", function () {\r",
+							"    const responseData = xml2Json(pm.response.text());\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.html.head.title).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://todomvc.com/examples/react/dist/",
+					"protocol": "https",
+					"host": [
+						"todomvc",
+						"com"
+					],
+					"path": [
+						"examples",
+						"react",
+						"dist",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
